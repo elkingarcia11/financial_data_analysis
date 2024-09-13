@@ -1,4 +1,3 @@
-```markdown
 # Financial Data Processing Script
 
 This project retrieves financial data for a list of stock tickers from Yahoo Finance using the `yfinance` library and saves it to a CSV file. It checks if data already exists and only fetches data that is missing or out-of-date.
@@ -78,5 +77,3 @@ yfinance
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
-
-```
