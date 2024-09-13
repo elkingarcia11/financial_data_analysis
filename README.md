@@ -1,74 +1,82 @@
-# Financial Data Analysis
+```markdown
+# Financial Data Processing Script
 
-This project fetches and processes financial data for stock ticker symbols using the `yfinance` library. It retrieves key financial metrics such as total revenue, net income, market capitalization, and free cash flow. The data is then saved into a CSV file for further analysis.
+This project retrieves financial data for a list of stock tickers from Yahoo Finance using the `yfinance` library and saves it to a CSV file. It checks if data already exists and only fetches data that is missing or out-of-date.
 
-## Features
+## Project Structure
 
-- Fetches the trailing twelve months (TTM) total revenue and net income.
-- Calculates the net income to total revenue ratio.
-- Retrieves market capitalization and free cash flow.
-- Reads ticker symbols from an input CSV file.
-- Writes processed financial data to an output CSV file.
+- **tickers.csv**: Contains a list of stock tickers to retrieve data for.
+- **financial_data.csv**: Stores the financial data of each ticker including Total Revenue, Net Income, Net income to total revenue ratio, Market Cap, Free Cash Flow, and EPS.
+- **financial_data.py**: Python script to fetch, process, and save the financial data.
+- **requirements.txt**: Lists the required Python packages for this project.
 
-## Prerequisites
+## CSV File Format
 
-- Python 3.x
-- `yfinance` library
-- `csv` library (comes with Python)
+### tickers.csv
+| Ticker |
+|--------|
+| A      |
+| AA     |
+| ...    |
+
+### financial_data.csv
+| Ticker | Total Revenue | Net Income | Net income to total revenue ratio | Market Cap | Free Cash Flow | EPS |
+|--------|---------------|------------|-----------------------------------|------------|----------------|-----|
+| A      | ...           | ...        | ...                               | ...        | ...            | ... |
+| AA     | ...           | ...        | ...                               | ...        | ...            | ... |
+| ...    | ...           | ...        | ...                               | ...        | ...            | ... |
 
 ## Installation
 
-1. **Clone the repository** (if applicable) or download the source code.
+1. Clone the repository to your local machine.
+2. Install the required dependencies using pip:
 
-2. **Install the `yfinance` library** using pip:
-
-```bash pip install yfinance```
+```bash
+pip install -r requirements.txt
+```
 
 ## Usage
 
-1. Prepare the Input CSV File:
-Create a CSV file named tickers.csv (or any name you prefer) containing a list of stock ticker symbols. The file should have a column named Ticker, like this:
-    ```
-    Ticker
-    AAPL
-    GOOGL
-    MSFT
-    ```
+1. **Prepare `tickers.csv`:**  
+   Add the stock tickers you want to process in `tickers.csv`. This file should contain a single column with the header `Ticker`.
 
-2. Run the Script
-You can run the script using the following command, replacing tickers.csv with your input file and financial_data.csv with your desired output file name:
+2. **Run the script:**
 
-```bash python financial_data_analysis.py```
+```bash
+python financial_data.py
+```
 
-Or use the example function call provided at the bottom of the script:
+This will fetch financial data for each ticker in `tickers.csv`, and save the results in `financial_data.csv`.
 
-```process_tickers('tickers.csv', 'financial_data.csv')```
+## How it Works
 
-3. Output
-The script generates a CSV file (financial_data.csv by default) containing the financial data for each ticker symbol. The output file will have the following columns:
+1. **Read Tickers:** The script reads the list of stock tickers from `tickers.csv`.
+2. **Fetch Financial Data:** For each ticker, it checks if data exists in `financial_data.csv`. If any required fields are missing, it fetches the data using `yfinance`.
+3. **Save Financial Data:** The script appends the data for each ticker to `financial_data.csv`.
 
-- Ticker
-- Total Revenue
-- Net income
-- Net income to total revenue ratio
-- Market Cap
-- Free Cash Flow
+## Requirements
 
-## Code Overview
+- **Python 3.7+**
+- **Required Python Libraries:**
 
-`FinancialData` class: Handles fetching and processing financial data for a single ticker symbol.
+```
+pandas
+yfinance
+```
 
-- `get_total_revenue()`: Retrieves the TTM total revenue.
-- `get_net_income()`: Retrieves the TTM net income.
-- `get_net_income_to_total_revenue_ratio()`: Calculates the ratio of net income to total revenue.
-- `get_market_cap()`: Retrieves the market capitalization.
-- `get_free_cash_flow()`: Retrieves the latest free cash flow value.
-- `to_dict()`: Converts financial data to a dictionary format.
-- `write_header_if_needed()`: Writes a CSV header if it doesn't exist.
-- `append_to_csv()`: Appends financial data to the output CSV file.
-- `read_tickers_from_csv()` function: Reads a list of ticker symbols from an input CSV file.
+## Notes
 
-`process_tickers()` function: Processes each ticker symbol, fetches financial data, and appends it to the output CSV file.
+- This script only fetches financial data for tickers that are missing or have incomplete data in `financial_data.csv`.
+- Supported financial metrics include:
+  - Total Revenue (TTM)
+  - Net Income (TTM)
+  - Net Income to Total Revenue Ratio
+  - Market Capitalization
+  - Free Cash Flow
+  - Earnings Per Share (EPS)
 
-## Error Handling
-- If a ticker symbol's data is not available or if an error occurs during data retrieval, the script prints an error message and continues processing the next ticker symbol.
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+
+```
